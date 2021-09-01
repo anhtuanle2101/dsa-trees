@@ -1,5 +1,4 @@
 /** BinaryTreeNode: node for a general tree. */
-
 class BinaryTreeNode {
   constructor(val, left = null, right = null) {
     this.val = val;
@@ -13,25 +12,58 @@ class BinaryTree {
     this.root = root;
   }
 
+
   /** minDepth(): return the minimum depth of the tree -- that is,
    * the length of the shortest path from the root to a leaf. */
 
   minDepth() {
+    let min = Number.MAX_VALUE;
+    if (this.root===null){
+      return 0;
+    }
+    function recursionHelper(node, depth){
+      if (!node.left && !node.right){
+        min = (depth <= min)?depth:min;
+      }else{
+        depth+=1;
+        recursionHelper(node.left, depth);
+        min = (depth <= min)?depth:min;
+        recursionHelper(node.right, depth);
+      }
+    }
 
+    recursionHelper(this.root, 1);
+    return min;
   }
 
   /** maxDepth(): return the maximum depth of the tree -- that is,
    * the length of the longest path from the root to a leaf. */
 
   maxDepth() {
+    let max = 0;
+    if (this.root===null){
+      return 0;
+    }
+    function recursionHelper(node, depth){
+      if (!node.left && !node.right){
+        max = (depth >= max)?depth:max;
+      }else{
+        depth+=1;
+        recursionHelper(node.left, depth);
+        max = (depth >= max)?depth:max;
+        recursionHelper(node.right, depth);
+      }
+    }
 
+    recursionHelper(this.root, 1);
+    return max;
   }
 
   /** maxSum(): return the maximum sum you can obtain by traveling along a path in the tree.
    * The path doesn't need to start at the root, but you can't visit a node more than once. */
 
   maxSum() {
-
+    
   }
 
   /** nextLarger(lowerBound): return the smallest value in the tree
